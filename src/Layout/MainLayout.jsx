@@ -5,7 +5,8 @@ import NavBer from '../pages/shared/NavBer/NavBer';
 
 const MainLayout = () => {
     const location = useLocation();
-    const isLogin = location.pathname.includes('login')
+    const isLogin = location.pathname.includes('login') || location.pathname.includes('signup');
+    
     return (
         <div>
             {isLogin || <NavBer></NavBer>}
