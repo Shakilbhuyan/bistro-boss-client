@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../providers/AuthProvider';
 
 const NavBer = () => {
+    const {user,  logOut} = useContext(AuthContext);
+    const handleLogOut = ()=>{
+        logOut()
+        .then()
+    }
     const NavOptions = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/order/salad">Order Food</Link></li>
-        <li><Link to="/login">Login</Link></li>
+        
+        {
+            user ? <div className='flex items-center gap-2'>
+            <span className='text-yellow-400 text-2xl font-semibold'>{user?.displayName}</span>
+            <img className='h-[40px] w-[40px] rounded-[20px] ' src={user?.photoURL} alt="" />
+            <button onClick={handleLogOut} className="btn btn-error">LogOut</button>
+            </div>: <><li><Link to="/login">Login</Link></li></>
+        }
     </>
     return (
         <div className="navbar fixed z-10 bg-opacity-30 max-w-screen-xl bg-black text-white">

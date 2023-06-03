@@ -3,19 +3,24 @@ import img from '../../assets/others/authentication1.png';
 import { loadCaptchaEnginge, LoadCanvasTemplate,  validateCaptcha } from 'react-simple-captcha';
 import { useRef } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-     const capchaRef = useRef(null);
      const [disable, setDisable] = useState(true);
      const {signIn} = useContext(AuthContext);
+     const navigate = useNavigate();
+     const location = useLocation();
+
+     const from =location.state?.from?.pathname || '/';
     //  captcha generator
     useEffect(()=>{
         loadCaptchaEnginge(6); 
     },[]);
 // validation captcha
-    const handleValidate = () =>{
-               const user_captcha_value = capchaRef.current.value;
+    const handleValidate = (event) =>{
+               const user_captcha_value = event.target.value;
                if(validateCaptcha(user_captcha_value)){
                      setDisable(false)
                }
@@ -33,9 +38,24 @@ const Login = () => {
         .then(result =>{
             const loggedUser = result.user;
             console.log(loggedUser);
+            Swal.fire({
+                title: 'Login Sucessfully',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+              });
+              navigate(from, {replace : true});
         })
-    }
+    };
+   
     return (
+       <>
+       <Helmet>
+        <title>Bistro Boss | Login</title>
+       </Helmet>
         <div className="hero min-h-screen bg-[rgba(0, 0, 0, 0.25)]">
             <div className="hero-content flex-col lg:flex-row items-center">
                 <div className="text-center md:w-1/2 ">
@@ -60,8 +80,8 @@ const Login = () => {
                             <label className="label">
                             <LoadCanvasTemplate />
                             </label>
-                            <input type="text" ref={capchaRef} name='captcha' placeholder="captcha" className="input input-bordered" />
-                            <button onClick={handleValidate} className='btn btn-outline btn-xs mt-2'>Validate</button>
+                            <input onBlur={handleValidate} type="text"  name='captcha' placeholder="captcha" className="input input-bordered" />
+                          
                         </div>
                         <div className="form-control mt-6">
                            <input disabled={disable} className='btn btn-primary' type="submit" value="Login" />
@@ -71,6 +91,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
+       </>
     );
 };
 
