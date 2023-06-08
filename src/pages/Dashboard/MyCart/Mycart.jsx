@@ -37,7 +37,7 @@ const Mycart = () => {
         })
     }
     return (
-        <div className='w-full'>
+        <div className='w-3/4 my-8 '>
             <Helmet>
                 <title>Bistro Boss | My Cart</title>
             </Helmet>

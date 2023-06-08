@@ -13,7 +13,7 @@ const Dashboard = () => {
 
         <div className="drawer drawer-mobile">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center  justify-center">
+            <div className="drawer-content ">
                 {/* Page content here */}
                 <Outlet></Outlet>
                 <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button  lg:hidden">Open drawer</label>
@@ -25,10 +25,10 @@ const Dashboard = () => {
                     {/* Sidebar content here */}
 
                     {
-                    isAdmin === true? <>
+                    isAdmin? <>
                             <li><NavLink to="/dashboard/home"><FaHome></FaHome>Admin Home</NavLink></li>
-                            <li><NavLink to="/dashboard/history"><FaUtensils></FaUtensils>Add Items</NavLink></li>
-                            <li><NavLink to="/dashboard/reservation"><FaCalendar></FaCalendar>Manage Items</NavLink></li>
+                            <li><NavLink to="/dashboard/additem"><FaUtensils></FaUtensils>Add Items</NavLink></li>
+                            <li><NavLink to="/dashboard/manageitems"><FaCalendar></FaCalendar>Manage Items</NavLink></li>
                             <li><NavLink to="/dashboard/reservation"><FaBook></FaBook>Manage Bookings</NavLink></li>
                             <li><NavLink to="/dashboard/allusers"><FaUsers></FaUsers>All Users</NavLink></li>
 
