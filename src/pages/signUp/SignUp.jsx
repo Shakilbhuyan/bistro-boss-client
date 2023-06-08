@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import SocialLogin from '../shared/socialLogin/SocialLogin';
 
 
 
@@ -12,15 +13,26 @@ const SignUp = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const {createUser, updateUserProfile} = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // Onsubmit function
   const onSubmit = data => {
     createUser(data.email, data.password)
     .then(result =>{
       const loggedUser = result.user;
-      console.log(loggedUser);
       updateUserProfile(data.name, data.photoURL)
       .then(()=>{
-              console.log("Profile updated")
-              reset();
+                 const savedUser = {name: data.name, email : data.email};
+                  fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers:{
+                      'content-type' : 'application/json'
+                    },
+                    body : JSON.stringify(savedUser)
+                  })
+                  .then(res => res.json())
+                  .then(data =>{
+                    if(data.insertedId){
+                      reset();
               Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -29,6 +41,10 @@ const SignUp = () => {
                 timer: 1500
               });
               navigate('/')
+                    }
+                  })
+
+              
       })
       .catch(error => console.log(error))
     })
@@ -83,6 +99,7 @@ const SignUp = () => {
             </div>
           </form>
           <small className='mb-4 ml-2'>Already have an Account ? <Link to="/login">please Login</Link></small>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

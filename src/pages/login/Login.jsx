@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import img from '../../assets/others/authentication1.png';
 import { loadCaptchaEnginge, LoadCanvasTemplate,  validateCaptcha } from 'react-simple-captcha';
-import { useRef } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+import SocialLogin from '../shared/socialLogin/SocialLogin';
 
 const Login = () => {
      const [disable, setDisable] = useState(true);
@@ -85,10 +85,11 @@ const Login = () => {
                         </div>
                         <div className="form-control mt-6">
                             {/* TODO: mnnake button disable for captcha */}
-                           <input disabled={false} className='btn btn-primary' type="submit" value="Login" />
+                           <input disabled={disable} className='btn btn-primary' type="submit" value="Login" />
                         </div>
                     </form>
                     <small className='mb-4 ml-2'>New Here ? <Link to="/signup">Create Account</Link></small>
+                    <SocialLogin></SocialLogin>
                 </div>
             </div>
         </div>
