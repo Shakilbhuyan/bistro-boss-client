@@ -26,14 +26,14 @@ const Dashboard = () => {
 
                     {
                     isAdmin? <>
-                            <li><NavLink to="/dashboard/home"><FaHome></FaHome>Admin Home</NavLink></li>
+                            <li><NavLink to="/dashboard/adminhome"><FaHome></FaHome>Admin Home</NavLink></li>
                             <li><NavLink to="/dashboard/additem"><FaUtensils></FaUtensils>Add Items</NavLink></li>
                             <li><NavLink to="/dashboard/manageitems"><FaCalendar></FaCalendar>Manage Items</NavLink></li>
                             <li><NavLink to="/dashboard/reservation"><FaBook></FaBook>Manage Bookings</NavLink></li>
                             <li><NavLink to="/dashboard/allusers"><FaUsers></FaUsers>All Users</NavLink></li>
 
                         </> : <>
-                            <li><NavLink to="/dashboard/home"><FaHome></FaHome>User Home</NavLink></li>
+                            <li><NavLink to="/dashboard/userhome"><FaHome></FaHome>User Home</NavLink></li>
                             <li><NavLink to="/dashboard/history"><FaWallet></FaWallet>Payment Histroy</NavLink></li>
                             <li><NavLink to="/dashboard/mycart"><FaShoppingCart></FaShoppingCart>My Cart<div className="badge badge-secondary">{cart?.length || 0}</div></NavLink></li>
                             <li><NavLink to="/dashboard/reservation"><FaCalendar></FaCalendar>Reservation</NavLink></li>
